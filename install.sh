@@ -1,16 +1,16 @@
 echo "VOUS VOICI DANS L'INSTALLATION DE MON SYSTÈME D'INFRASTRUCTURE RESAUX"
 echo "vous allez installez une configuration nas un system qui peremetera de voir vos film et un system de muisque et de l automatisation"
-sudo apt update 
-sudo apt upgrade 
+sudo apt update -y
+sudo apt upgrade -y
 sudo apt install samba -y
 sudo apt install nodejs npm -y
 sudo apt install ufw -y
-sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release
+sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release -y
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
-sudo apt update 
-sudo apt upgrade 
+sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
+sudo apt update -y
+sudo apt upgrade -y
 
 echo "vous voici dans la section sur le nas"
 
@@ -68,8 +68,8 @@ services:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=$(id -u)
+      - PGID=$(id -g)
       - TZ=Etc/UTC
       - JELLYFIN_PublishedServerUrl=http://$ip_nas
     volumes:
