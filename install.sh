@@ -22,8 +22,8 @@ echo "la possibilité d exectué des commande docker vous a ete donnez"
 echo "quelle est le nom que vous voulez donnez a votre dossier de partage ?"
 read nom_dossier
 
-mkdir -p ~/"$nom_dossier"
-chmod 777 ~/"$nom_dossier"
+mkdir -p /home/$username_system/"$nom_dossier"
+chmod 777 /home/$username_system/"$nom_dossier"
 
 sudo tee -a /etc/samba/smb.conf >/dev/null  << EOF 
 [SharedFolder]
@@ -57,12 +57,12 @@ echo "l'adresse de ton NAS pour Windows est :\\$ip_nas\\$nom_dossier"
 echo"pour y accedez tape juste ton nom de user linux et le mots de passe que tu a rensiegnez "
 
 
-mkdir -p ~/"$nom_dossier"/jellyfin/library
-mkdir -p ~/"$nom_dossier"/jellyfin/tvseries
-mkdir -p ~/"$nom_dossier"/jellyfin/movies
+mkdir -p /home/$username_system/jellyfin/library
+mkdir -p /home/$username_system/jellyfin/tvseries
+mkdir -p /home/$username_system/jellyfin/movies
 
-mkdir ~/docker/jellyfin
-cd ~/docker/jellyfin
+mkdir /home/$username_system/docker/jellyfin
+cd /home/$username_system/docker/jellyfin
 touch docker-compose.yml
 cat > docker-compose.yml << EOF
 PUID=$(id -u "$username_system")
