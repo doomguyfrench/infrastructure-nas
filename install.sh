@@ -7,14 +7,14 @@ sudo apt install nodejs npm -y
 
 echo "vous voici dans la section sur le nas"
 
-username_system=whoami 
+username_system=$(whoami) 
 
 echo "quelle est le nom que vous voulez donnez a votre dossier de partage"
 read nom_dossier
 mkdir ~/$nom_dossier
 chmod 777 ~/$nom_dossier
 
-echo >> "[SharedFolder]
+cat >> /etc/samba/smb.conf << EOF [SharedFolder]
    path = /home/$username_system/$nom_dossier
    available = yes
    valid users = $username_syste
@@ -22,6 +22,7 @@ echo >> "[SharedFolder]
    browsable = yes
    public = yes
    writable = yes"
+   EOF
 
 
 
