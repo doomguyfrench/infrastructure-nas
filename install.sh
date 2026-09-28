@@ -86,9 +86,6 @@ EOF
 "
 docker compose up -d
 echo" tu peut accedez a jellyfin a cette adresse partout sur le wifi de chez toi http://$ip_nas:8096" 
-
-
-
 cd ~/docker/
 
 
