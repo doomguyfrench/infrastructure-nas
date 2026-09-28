@@ -55,8 +55,8 @@ echo"pour y accedez tape juste ton nom de user linux et le mots de passe que tu 
 
 
 mkdir -p ~/"$nom_dossier"/jellyfin/library
-mkdir -p ~/"$nom_dossier"jellyfin/tvseries
-mkdir -p ~/"$nom_dossier"jellyfin/movies
+mkdir -p ~/"$nom_dossier"/jellyfin/tvseries
+mkdir -p ~/"$nom_dossier"/jellyfin/movies
 
 mkdir ~/docker/jellyfin
 cd ~/docker/jellyfin
