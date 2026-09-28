@@ -14,7 +14,7 @@ read nom_dossier
 mkdir ~/$nom_dossier
 chmod 777 ~/$nom_dossier
 
-cat >> /etc/samba/smb.conf << EOF 
+sudo tee -a /etc/samba/smb.conf >/dev/null  << EOF 
 [SharedFolder]
    path = /home/$username_system/$nom_dossier
    available = yes
@@ -23,7 +23,7 @@ cat >> /etc/samba/smb.conf << EOF
    browsable = yes
    public = yes
    writable = yes
-   EOF
+EOF
 
 
 
