@@ -14,7 +14,10 @@ sudo apt upgrade -y
 
 echo "vous voici dans la section sur le nas"
 
-username_system=$(whoami) 
+username_system="${SUDO_USER:-(whoami)}" 
+echo "utilisateur detecteé :$username_system"
+sudo usermod -aG docker"$username_system"
+echo "la possibilité d exectué des commande docker vous a ete donnez"
 
 echo "quelle est le nom que vous voulez donnez a votre dossier de partage ?"
 read nom_dossier
@@ -61,7 +64,7 @@ mkdir -p ~/"$nom_dossier"/jellyfin/movies
 mkdir ~/docker/jellyfin
 cd ~/docker/jellyfin
 touch docker-compose.yml
-cat > docker-compose.yml EOF
+cat > docker-compose.yml << EOF
 ---
 services:
   jellyfin:
@@ -95,17 +98,3 @@ sudo ufw allow 22/tcp
 sudo ufw allow 8096/tcp
 sudo ufw enable
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-sudo systemctl status smbd
