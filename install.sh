@@ -44,7 +44,8 @@ sudo systemctl enable smbd
 sudo systemctl enable nmbd
 
 
-echo "l adresse de ton nas est pour windose  $(ip -4 addr)/"$nom_dossier"
+ip_nas=$(hostname -I | awk '{print $1}')
+echo "l'adresse de ton NAS pour Windows est :\\$ip_nas\\$nom_dossier"
 
 
 sudo ufw allow samba
