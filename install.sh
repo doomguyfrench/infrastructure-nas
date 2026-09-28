@@ -12,8 +12,7 @@ username_system=$(whoami)
 
 echo "quelle est le nom que vous voulez donnez a votre dossier de partage ?"
 read nom_dossier
-echo"voici la partie la plus importante quelle va etre ton nom de utulisateur"
-read nom_utulisateur
+
 mkdir -p ~/"$nom_dossier"
 chmod 777 ~/"$nom_dossier"
 
@@ -21,7 +20,7 @@ sudo tee -a /etc/samba/smb.conf >/dev/null  << EOF
 [SharedFolder]
    path = /home/$username_system/$nom_dossier
    available = yes
-   valid users = $nom_utulisateur
+   valid users = $username_system
    read only = no
    browsable = yes
    public = yes
@@ -30,7 +29,7 @@ EOF
 sudo testparm
 
 echo"ok la on est sur la deusieme partie quelle sera ton mots de passe "
-sudo smbpasswd -a "$nom_utulisateur"
+sudo smbpasswd -a "$username_system/"
 
 sudo systemctl status smbd
 
@@ -46,7 +45,7 @@ sudo systemctl enable nmbd
 
 ip_nas=$(hostname -I | awk '{print $1}')
 echo "l'adresse de ton NAS pour Windows est :\\$ip_nas\\$nom_dossier"
-
+echo"pour y accedez tape juste ton nom de user linux et le mots de passe que tu a rensiegnez "
 
 sudo ufw allow samba
 sudo ufw allow ssh
