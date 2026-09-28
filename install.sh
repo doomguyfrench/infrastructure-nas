@@ -61,12 +61,13 @@ mkdir -p /home/$username_system/jellyfin/library
 mkdir -p /home/$username_system/jellyfin/tvseries
 mkdir -p /home/$username_system/jellyfin/movies
 
-mkdir /home/$username_system/docker/jellyfin
+mkdir -p /home/$username_system/docker/jellyfin
 cd /home/$username_system/docker/jellyfin
 touch docker-compose.yml
-cat > docker-compose.yml << EOF
 PUID=$(id -u "$username_system")
 PGID=$(id -g "$username_system")
+
+cat > docker-compose.yml << EOF
 ---
 services:
   jellyfin:
@@ -74,7 +75,7 @@ services:
     container_name: jellyfin
     environment:
       - PUID=$PUID
-      - PGID=$PUID
+      - PGID=$PGID
       - TZ=Etc/UTC
       - JELLYFIN_PublishedServerUrl=http://$ip_nas
     volumes:
@@ -91,7 +92,7 @@ EOF
 
 docker compose up -d
 echo" tu peut accedez a jellyfin a cette adresse partout sur le wifi de chez toi http://$ip_nas:8096" 
-cd ~/docker/
+cd /home/$username_system/docker/
 
 
 sudo ufw allow samba
