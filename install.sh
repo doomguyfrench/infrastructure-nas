@@ -22,7 +22,7 @@ cat >> /etc/samba/smb.conf << EOF
    read only = no
    browsable = yes
    public = yes
-   writable = yes"
+   writable = yes
    EOF
 
 
