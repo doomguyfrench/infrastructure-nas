@@ -1,6 +1,7 @@
 echo "VOUS VOICI DANS L'INSTALLATION DE MON SYSTÈME D'INFRASTRUCTURE RESAUX"
 echo "vous allez installez une configuration nas un system qui peremetera de voir vos film et un system de muisque et de l automatisation"
-
+sudo apt update 
+sudo apt upgrade 
 sudo apt install samba -y
 sudo apt install nodejs npm -y
 sudo apt install ufw -y
@@ -53,14 +54,14 @@ echo "l'adresse de ton NAS pour Windows est :\\$ip_nas\\$nom_dossier"
 echo"pour y accedez tape juste ton nom de user linux et le mots de passe que tu a rensiegnez "
 
 
-mkdir~/"$nom_dossier"/jellyfin/library
-mkdir~/"$nom_dossier"jellyfin/tvseries
-mkdir~/"$nom_dossier"jellyfin/movies
+mkdir -p ~/"$nom_dossier"/jellyfin/library
+mkdir -p ~/"$nom_dossier"jellyfin/tvseries
+mkdir -p ~/"$nom_dossier"jellyfin/movies
 
 mkdir ~/docker/jellyfin
 cd ~/docker/jellyfin
 touch docker-compose.yml
-echo  "
+cat >docker-compose.yml"EOF
 ---
 services:
   jellyfin:
@@ -70,22 +71,23 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      - JELLYFIN_PublishedServerUrl=http://192.168.0.5 #optional
+      - JELLYFIN_PublishedServerUrl=http://$ip_nas
     volumes:
-      - ~/"$nom_dossier"/jellyfin/library:/config
-      - ~/"$nom_dossier"/jellyfin/tvseries:/data/tvshows
-      - ~/"$nom_dossier"jellyfin/movies:/data/movies
+      - /home/$username_system/$nom_dossier/jellyfin/library:/config
+      - /home/$username_system/$nom_dossier/jellyfin/tvseries:/data/tvshows
+      - /home/$username_system/$nom_dossier/jellyfin/movies:/data/movies
     ports:
       - 8096:8096
       - 8920:8920 
       - 7359:7359/udp 
       - 1900:1900/udp 
     restart: unless-stopped
+EOF
+"
+docker compose up -d
+echo" tu peut accedez a jellyfin a cette adresse partout sur le wifi de chez toi http://$ip_nas:8096" 
 
 
-
-">>docker-compose.yml
-docker-compose up -d
 
 cd ~/docker/
 
@@ -93,6 +95,7 @@ cd ~/docker/
 sudo ufw allow samba
 sudo ufw allow ssh
 sudo ufw allow 22/tcp
+sudo ufw allow 8096/tcp
 sudo ufw enable
 
 
