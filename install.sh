@@ -73,7 +73,7 @@ cat > docker-compose.yml << EOF
 services:
   jellyfin:
    image: lscr.io/linuxserver/jellyfin:latest
-    container_name: jellyfin
+   container_name: jellyfin
     environment:
       - PUID=$PUID
       - PGID=$PGID
@@ -111,7 +111,7 @@ cat > docker-compose.yml << EOF
 services:
   navidrome:
     image: deluan/navidrome:latest
-    user: 1000:1000 # must own the data folder and be able to read music folder(s). See Permissions below
+    user: "$PUID:$PGID"
     ports:
       - "4533:4533"
     restart: unless-stopped
@@ -123,7 +123,7 @@ services:
 EOF
 
 sudo docker compose up -d
-echo" tu peut accedez a jellyfin a cette adresse partout sur le wifi de chez toi http://$ip_nas:4533" 
+echo" tu peut accedez a navidrome a cette adresse partout sur le wifi de chez toi http://$ip_nas:4533" 
 
 
 
