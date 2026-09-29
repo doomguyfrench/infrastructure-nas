@@ -41,7 +41,7 @@ sudo testparm
 echo"ok la on est sur la deusieme partie quelle sera ton mots de passe "
 sudo smbpasswd -a "$username_system"
 
-sudo systemctl status smbd
+
 
 echo "samba va redemareé"
 sudo systemctl restart smbd
@@ -91,7 +91,7 @@ services:
     restart: unless-stopped
 EOF
 
-docker compose up -d
+sudo docker compose up -d
 echo" tu peut accedez a jellyfin a cette adresse partout sur le wifi de chez toi http://$ip_nas:8096" 
 cd /home/$username_system/docker/
 
