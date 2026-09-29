@@ -8,10 +8,8 @@ Le script installe et configure :
 * 🐳 **Docker** — gestion des conteneurs
 * 🎬 **Jellyfin** — serveur de films et séries
 * 🎵 **Navidrome** — serveur de musique
-* ⚙️ **n8n** — automatisation
 * 🔥 **UFW** — pare-feu
 * 🟢 **systemd** — démarrage automatique des services
-* 🟩 **Node.js / npm** — environnement nécessaire notamment pour n8n
 
 ---
 
@@ -54,9 +52,7 @@ Le script va ensuite :
 8. Configurer Samba
 9. Configurer Jellyfin
 10. Configurer Navidrome
-11. Installer n8n
-12. Configurer n8n avec systemd
-13. Configurer le pare-feu
+11. Configurer le pare-feu
 
 ---
 
@@ -85,8 +81,7 @@ Après l'installation, la structure ressemble à ceci :
     │
     ├── navidrome/
     │   └── docker-compose.yml
-    │
-    └── n8n/
+
 ```
 
 ---
@@ -174,53 +169,6 @@ Le dossier `music` est monté en lecture seule dans le conteneur :
 - "/home/<utilisateur>/<partage>/navidrome/music:/music:ro"
 ```
 
----
-
-# ⚙️ n8n
-
-n8n est installé directement avec npm :
-
-```bash
-sudo npm install -g n8n
-```
-
-Il est ensuite configuré comme service `systemd`.
-
-### Port
-
-```text
-5678/TCP
-```
-
-Accès :
-
-```text
-http://IP_DU_SERVEUR:5678
-```
-
-Le service démarre automatiquement avec le serveur grâce à :
-
-```bash
-sudo systemctl enable n8n
-```
-
-### Vérifier n8n
-
-```bash
-sudo systemctl status n8n
-```
-
-### Voir les logs
-
-```bash
-sudo journalctl -u n8n -f
-```
-
-### Redémarrer n8n
-
-```bash
-sudo systemctl restart n8n
-```
 
 ---
 
@@ -266,7 +214,7 @@ UFW autorise les services nécessaires :
 | Samba     | 445 / 139 | TCP       |
 | Navidrome |      4533 | TCP       |
 | Jellyfin  |      8096 | TCP       |
-| n8n       |      5678 | TCP       |
+
 
 Le pare-feu est activé avec :
 
@@ -293,11 +241,6 @@ sudo systemctl enable smbd
 sudo systemctl enable nmbd
 ```
 
-### n8n
-
-```bash
-sudo systemctl enable n8n
-```
 
 ### Docker
 
@@ -359,17 +302,6 @@ sudo docker compose logs
 
 ---
 
-## Vérifier n8n
-
-```bash
-sudo systemctl status n8n
-```
-
-Logs :
-
-```bash
-sudo journalctl -u n8n -f
-```
 
 ---
 
@@ -382,11 +314,11 @@ sudo journalctl -u n8n -f
                        │   Docker / systemd  │
                        └──────────┬──────────┘
                                   │
-             ┌────────────────────┼────────────────────┐
-             │                    │                    │
-             ▼                    ▼                    ▼
-          Samba                Docker              n8n
-       partage NAS          ┌─────┴─────┐           :5678
+             ┌────────────────────┼
+             │                    │                    
+             ▼                    ▼                    
+          Samba                Docker              
+       partage NAS          ┌─────┴─────┐           
                             │           │
                             ▼           ▼
                          Jellyfin   Navidrome

@@ -5,11 +5,8 @@ sudo apt upgrade -y
 sudo apt install samba -y
 sudo apt install nodejs npm -y
 sudo apt install ufw -y
-sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release -y
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt update -y
-sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
+sduo apt install docker.io -y
+sudo apt-get install docker-compose-plugin -y
 sudo apt update -y
 sudo apt upgrade -y
 
@@ -18,6 +15,8 @@ echo "vous voici dans la section sur le nas"
 username_system="${SUDO_USER:-$(whoami)}" 
 echo "utilisateur detecteé :$username_system"
 sudo usermod -aG docker "$username_system"
+exec sg docker newgrp
+
 echo "la possibilité d exectué des commande docker vous a ete donnez"
 
 echo "quelle est le nom que vous voulez donnez a votre dossier de partage ?"
@@ -127,34 +126,6 @@ EOF
 
 sudo docker compose up -d
 echo" tu peut accedez a navidrome a cette adresse partout sur le wifi de chez toi http://$ip_nas:4533" 
-
-echo "installation de n8n"
-
-sudo npm install -g n8n
-
-sudo tee /etc/systemd/system/n8n.service > /dev/null <<EOF
-[Unit]
-Description=n8n Automation
-After=network.target
-
-[Service]
-Type=simple
-User=$username_system
-Environment=HOME=/home/$username_system
-ExecStart=$(which n8n)
-Restart=always
-RestartSec=5
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-sudo systemctl daemon-reload
-sudo systemctl enable n8n
-sudo systemctl start n8n
-
-echo "n8n est installe et demarrera automatiquement au prochain demarrage"
-echo "n8n est accessible sur http://$ip_nas:5678"
 
 
 
