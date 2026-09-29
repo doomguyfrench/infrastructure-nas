@@ -133,7 +133,6 @@ sudo ufw allow samba
 sudo ufw allow ssh
 sudo ufw allow 4533/tcp
 sudo ufw allow 8096/tcp
-sudo ufw allow 5678/tcp
 sudo ufw enable
 
-sudo systemctl start n8n
+
