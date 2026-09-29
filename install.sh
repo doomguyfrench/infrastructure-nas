@@ -72,7 +72,7 @@ cat > docker-compose.yml << EOF
 ---
 services:
   jellyfin:
-    image: lscr.io/linuxserver/jellyfin:latest
+   image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
     environment:
       - PUID=$PUID
@@ -94,6 +94,39 @@ EOF
 sudo docker compose up -d
 echo" tu peut accedez a jellyfin a cette adresse partout sur le wifi de chez toi http://$ip_nas:8096" 
 cd /home/$username_system/docker/
+
+
+
+mkdir -p /home/$username_system/docker/navidrome
+mkdir -p "/home/$username_system/$nom_dossier/navidrome/data"
+mkdir -p "/home/$username_system/$nom_dossier/navidrome/music"
+
+
+
+cd /home/$username_system/docker/navidrome
+touch docker-compose.yml
+
+cat > docker-compose.yml << EOF
+---
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    user: 1000:1000 # must own the data folder and be able to read music folder(s). See Permissions below
+    ports:
+      - "4533:4533"
+    restart: unless-stopped
+
+    volumes:
+      - "/home/$username_system/$nom_dossier/navidrome/data:/data"
+      - "/home/$username_system/$nom_dossier/navidrome/music:/music:ro"
+
+EOF
+
+sudo docker compose up -d
+echo" tu peut accedez a jellyfin a cette adresse partout sur le wifi de chez toi http://$ip_nas:4533" 
+
+
+
 
 
 sudo ufw allow samba
