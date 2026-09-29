@@ -5,7 +5,7 @@ sudo apt upgrade -y
 sudo apt install samba -y
 sudo apt install nodejs npm -y
 sudo apt install ufw -y
-sduo apt install docker.io -y
+sudo apt install docker.io -y
 sudo apt-get install docker-compose-plugin -y
 sudo apt update -y
 sudo apt upgrade -y
@@ -15,7 +15,6 @@ echo "vous voici dans la section sur le nas"
 username_system="${SUDO_USER:-$(whoami)}" 
 echo "utilisateur detecteé :$username_system"
 sudo usermod -aG docker "$username_system"
-exec sg docker newgrp
 
 echo "la possibilité d exectué des commande docker vous a ete donnez"
 
