@@ -121,6 +121,7 @@ EOF
 
 
 
+sudo chown -R "$username_system": "/home/$username_system/$nom_dossier" "/home/$username_system/docker"
 
 sudo docker compose up -d
 echo " tu peut accedez a navidrome a cette adresse partout sur le wifi de chez toi http://$ip_nas:4533" 
