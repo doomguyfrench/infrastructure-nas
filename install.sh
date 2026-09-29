@@ -72,8 +72,8 @@ cat > docker-compose.yml << EOF
 ---
 services:
   jellyfin:
-   image: lscr.io/linuxserver/jellyfin:latest
-   container_name: jellyfin
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
     environment:
       - PUID=$PUID
       - PGID=$PGID
@@ -85,9 +85,9 @@ services:
       - /home/$username_system/$nom_dossier/jellyfin/movies:/data/movies
     ports:
       - 8096:8096
-      - 8920:8920 
-      - 7359:7359/udp 
-      - 1900:1900/udp 
+      - 8920:8920
+      - 7359:7359/udp
+      - 1900:1900/udp
     restart: unless-stopped
 EOF
 
@@ -122,10 +122,39 @@ services:
 
 EOF
 
+
+
+
 sudo docker compose up -d
 echo" tu peut accedez a navidrome a cette adresse partout sur le wifi de chez toi http://$ip_nas:4533" 
 
+echo "installation de n8n"
 
+sudo npm install -g n8n
+
+sudo tee /etc/systemd/system/n8n.service > /dev/null <<EOF
+[Unit]
+Description=n8n Automation
+After=network.target
+
+[Service]
+Type=simple
+User=$username_system
+Environment=HOME=/home/$username_system
+ExecStart=$(which n8n)
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable n8n
+sudo systemctl start n8n
+
+echo "n8n est installe et demarrera automatiquement au prochain demarrage"
+echo "n8n est accessible sur http://$ip_nas:5678"
 
 
 
