@@ -8,6 +8,7 @@ sudo apt install ufw -y
 sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release -y
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update -y
 sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
 sudo apt update -y
 sudo apt upgrade -y
@@ -57,9 +58,9 @@ echo "l'adresse de ton NAS pour Windows est :\\$ip_nas\\$nom_dossier"
 echo"pour y accedez tape juste ton nom de user linux et le mots de passe que tu a rensiegnez "
 
 
-mkdir -p /home/$username_system/jellyfin/library
-mkdir -p /home/$username_system/jellyfin/tvseries
-mkdir -p /home/$username_system/jellyfin/movies
+mkdir -p "/home/$username_system/$nom_dossier/jellyfin/library"
+mkdir -p "/home/$username_system/$nom_dossier/jellyfin/tvseries"
+mkdir -p "/home/$username_system/$nom_dossier/jellyfin/movies"
 
 mkdir -p /home/$username_system/docker/jellyfin
 cd /home/$username_system/docker/jellyfin
