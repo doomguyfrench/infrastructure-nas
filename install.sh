@@ -5,8 +5,7 @@ sudo apt upgrade -y
 sudo apt install samba -y
 sudo apt install nodejs npm -y
 sudo apt install ufw -y
-sudo apt install docker.io -y
-sudo apt-get install docker-compose-plugin -y
+curl -fsSL https://get.docker.com | sudo sh
 sudo apt update -y
 sudo apt upgrade -y
 
@@ -36,7 +35,7 @@ sudo tee -a /etc/samba/smb.conf >/dev/null  << EOF
 EOF
 sudo testparm
 
-echo"ok la on est sur la deusieme partie quelle sera ton mots de passe "
+echo "ok la on est sur la deusieme partie quelle sera ton mots de passe "
 sudo smbpasswd -a "$username_system"
 
 
@@ -45,7 +44,7 @@ echo "samba va redemareé"
 sudo systemctl restart smbd
 sudo systemctl restart nmbd
 
-echo"samba va commancez a chaque start up"
+echo "samba va commancez a chaque start up"
 
 sudo systemctl enable smbd
 sudo systemctl enable nmbd
@@ -53,7 +52,7 @@ sudo systemctl enable nmbd
 
 ip_nas=$(hostname -I | awk '{print $1}')
 echo "l'adresse de ton NAS pour Windows est :\\$ip_nas\\$nom_dossier"
-echo"pour y accedez tape juste ton nom de user linux et le mots de passe que tu a rensiegnez "
+echo "pour y accedez tape juste ton nom de user linux et le mots de passe que tu a rensiegnez "
 
 
 mkdir -p "/home/$username_system/$nom_dossier/jellyfin/library"
@@ -90,7 +89,7 @@ services:
 EOF
 
 sudo docker compose up -d
-echo" tu peut accedez a jellyfin a cette adresse partout sur le wifi de chez toi http://$ip_nas:8096" 
+echo " tu peut accedez a jellyfin a cette adresse partout sur le wifi de chez toi http://$ip_nas:8096" 
 cd /home/$username_system/docker/
 
 
@@ -124,7 +123,7 @@ EOF
 
 
 sudo docker compose up -d
-echo" tu peut accedez a navidrome a cette adresse partout sur le wifi de chez toi http://$ip_nas:4533" 
+echo " tu peut accedez a navidrome a cette adresse partout sur le wifi de chez toi http://$ip_nas:4533" 
 
 
 
