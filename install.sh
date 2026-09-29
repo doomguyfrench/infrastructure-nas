@@ -131,7 +131,7 @@ echo" tu peut accedez a navidrome a cette adresse partout sur le wifi de chez to
 
 sudo ufw allow samba
 sudo ufw allow ssh
-sudo ufw allow 22/tcp
+sudo ufw allow 4533/tcp
 sudo ufw allow 8096/tcp
 sudo ufw enable
 
