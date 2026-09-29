@@ -339,7 +339,6 @@ Ce projet fournit une base d'infrastructure permettant d'avoir sur une seule mac
 📁 NAS
 🎬 Serveur multimédia
 🎵 Serveur musical
-⚙️ Automatisation
 🐳 Conteneurs Docker
 🔥 Pare-feu
 🔄 Démarrage automatique
@@ -353,4 +352,4 @@ L'objectif est d'avoir une installation reproductible permettant de transformer 
 
 Le script est destiné principalement à un **réseau local**.
 
-Avant une exposition sur Internet, il est recommandé de mettre en place des mesures supplémentaires : HTTPS, authentification correctement configurée, contrôle des accès, sauvegardes et éventuellement un reverse proxy.
+Avant une exposition sur Internet, il est recommandé de mettre en place des mesures supplémentaires : HTTPS, authentification correctement configurée, contrôle des accès, sauvegardes et éventuellement un reverse proxy.Si vous voulez un installeur à n8n, je vous le ferai prochainement
