@@ -165,3 +165,4 @@ sudo ufw allow 8096/tcp
 sudo ufw allow 5678/tcp
 sudo ufw enable
 
+sudo systemctl start n8n
