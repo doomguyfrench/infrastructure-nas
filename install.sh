@@ -55,11 +55,11 @@ echo "l'adresse de ton NAS pour Windows est :\\$ip_nas\\$nom_dossier"
 echo "pour y accedez tape juste ton nom de user linux et le mots de passe que tu a rensiegnez "
 
 
-mkdir -p "/home/$username_system/$nom_dossier/jellyfin/library"
-mkdir -p "/home/$username_system/$nom_dossier/jellyfin/tvseries"
-mkdir -p "/home/$username_system/$nom_dossier/jellyfin/movies"
+mkdir -p /home/$username_system/$nom_dossier/jellyfin/library
+mkdir -p /home/$username_system/$nom_dossier/jellyfin/tvseries
+mkdir -p /home/$username_system/$nom_dossier/jellyfin/movies
 
-mkdir -p "/home/$username_system/docker/jellyfin"
+mkdir -p /home/$username_system/docker/jellyfin
 cd /home/$username_system/docker/jellyfin
 touch docker-compose.yml
 PUID=$(id -u "$username_system")
@@ -94,9 +94,9 @@ cd /home/$username_system/docker/
 
 
 
-mkdir -p "/home/$username_system/docker/navidrome"
-mkdir -p "/home/$username_system/$nom_dossier/navidrome/data"
-mkdir -p "/home/$username_system/$nom_dossier/navidrome/music"
+mkdir -p /home/$username_system/docker/navidrome
+mkdir -p /home/$username_system/$nom_dossier/navidrome/data
+mkdir -p /home/$username_system/$nom_dossier/navidrome/music
 
 
 
