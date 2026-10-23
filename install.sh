@@ -10,9 +10,9 @@ sudo apt update -y
 sudo apt upgrade -y
 
 echo "vous voici dans la section sur le nas"
+username_system="${SUDO_USER:-$(whoami)}" 
 PUID=$(id -u "$username_system")
 PGID=$(id -g "$username_system")
-username_system="${SUDO_USER:-$(whoami)}" 
 echo "utilisateur detecteé :$username_system"
 sudo usermod -aG docker "$username_system"
 sudo groupadd -g "$PGID" nasuser
