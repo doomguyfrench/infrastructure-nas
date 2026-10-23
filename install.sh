@@ -10,10 +10,13 @@ sudo apt update -y
 sudo apt upgrade -y
 
 echo "vous voici dans la section sur le nas"
- 
+PUID=$(id -u "$username_system")
+PGID=$(id -g "$username_system")
 username_system="${SUDO_USER:-$(whoami)}" 
 echo "utilisateur detecteé :$username_system"
 sudo usermod -aG docker "$username_system"
+sudo groupadd -g "$PGID" nasuser
+sudo usermod -aG nasuser "$username_system"
 
 echo "la possibilité d exectué des commande docker vous a ete donnez"
 
@@ -62,8 +65,7 @@ mkdir -p /home/$username_system/$nom_dossier/jellyfin/movies
 mkdir -p /home/$username_system/docker/jellyfin
 cd /home/$username_system/docker/jellyfin
 touch docker-compose.yml
-PUID=$(id -u "$username_system")
-PGID=$(id -g "$username_system")
+
 
 cat > docker-compose.yml << EOF
 ---
