@@ -24,7 +24,8 @@ echo "quelle est le nom que vous voulez donnez a votre dossier de partage ?"
 read nom_dossier
 
 mkdir -p /home/$username_system/"$nom_dossier"
-sudo chown 775 :nasuser /home/$username_system/"$nom_dossier"
+sudo chown :nasuser /home/$username_system/"$nom_dossier"
+sudo chmod 770 /home/$username_system/"$nom_dossier"
 
 sudo tee -a /etc/samba/smb.conf >/dev/null  << EOF 
 [SharedFolder]
