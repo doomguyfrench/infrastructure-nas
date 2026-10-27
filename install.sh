@@ -15,7 +15,7 @@ PUID=$(id -u "$username_system")
 PGID=$(id -g "$username_system")
 echo "utilisateur detecteé :$username_system"
 sudo usermod -aG docker "$username_system"
-sudo groupadd -g "$PGID" nasuser
+sudo groupadd -g  nasuser
 sudo usermod -aG nasuser "$username_system"
 
 echo "la possibilité d exectué des commande docker vous a ete donnez"
@@ -24,7 +24,7 @@ echo "quelle est le nom que vous voulez donnez a votre dossier de partage ?"
 read nom_dossier
 
 mkdir -p /home/$username_system/"$nom_dossier"
-chmod 777 /home/$username_system/"$nom_dossier"
+sudo chown 775 :nasuser /home/$username_system/"$nom_dossier"
 
 sudo tee -a /etc/samba/smb.conf >/dev/null  << EOF 
 [SharedFolder]
